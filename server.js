@@ -2,6 +2,7 @@ const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
 const cors = require('cors'); // Import the cors package
+const { log } = require('console');
 
 const app = express();
 const server = http.createServer(app);
@@ -21,6 +22,7 @@ io.on('connection', (socket) => {
 
   socket.on('drawing', (data) => {
     // Broadcast drawing data to all connected clients
+    console.log(data);
     socket.broadcast.emit('drawing', data);
   });
 
@@ -28,6 +30,7 @@ io.on('connection', (socket) => {
     console.log('A user disconnected');
   });
 });
+
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
